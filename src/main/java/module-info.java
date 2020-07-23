@@ -1,4 +1,4 @@
-module purpleloop.commons {
+module purpleloop.commons.swing {
 
     exports purpleloop.commons.swing;
 
