@@ -59,6 +59,11 @@
 	        <version>4.13</version>
 	        <scope>test</scope>
 	    </dependency>
-	    
+
+	    <dependency>
+	        <groupId>io.github.purpleloop</groupId>
+	        <artifactId>purple-commons</artifactId>
+	        <version>1.0.0-SNAPSHOT</version>
+	    </dependency>
 	</dependencies>
 </project>
