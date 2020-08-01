@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 /** Utilities for Swing UI. */
@@ -124,6 +125,32 @@ public final class SwingUtils {
             cont.add(checkBox, constraints);
         }
         return checkBox;
+    }
+
+    /**
+     * Creates a slider field.
+     * 
+     * @param owner the container of the slider
+     * @param minimumValue the minimal value
+     * @param maximumValue the maximal value
+     * @param currentValue the current value
+     * @param ticksSpacing major tick increment
+     * @param paintTicks true to paint ticks
+     * @return the resulting slider
+     */
+    public static JSlider createSlider(Container owner, int minimumValue, int maximumValue,
+            int currentValue, int ticksSpacing, boolean paintTicks) {
+    
+        JSlider jSlider = new JSlider();
+        jSlider.setMinimum(minimumValue);
+        jSlider.setMaximum(maximumValue);
+        jSlider.setValue(currentValue);
+        jSlider.setMajorTickSpacing(ticksSpacing);
+        jSlider.setPaintTicks(paintTicks);
+        if (owner != null) {
+            owner.add(jSlider);
+        }
+        return jSlider;
     }
 
     /**
