@@ -3,11 +3,13 @@ package purpleloop.commons.swing;
 import java.awt.Container;
 import java.awt.event.ActionListener;
 
+import javax.swing.Action;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
@@ -64,15 +66,46 @@ public final class SwingUtils {
     }
 
     /**
+     * Creates a button for a given action.
+     * 
+     * @param action the action linked to the button
+     * @param container container
+     * @return the button
+     */
+    public static JButton createButton(Action action, Container container) {
+        JButton button = new JButton(action);
+        container.add(button);
+        return button;
+    }
+
+    /**
+     * Creates a new label.
+     * 
+     * @param text text of the label
+     * @param cont container of the label
+     * @return the label
+     */
+    public static JLabel addLabel(String text, Container cont) {
+        JLabel label = new JLabel(text);
+        cont.add(label);
+        return label;
+    }
+
+    /**
      * Creates a text field with the given constraints.
      * 
+     * @param columns columns
+     * @param initialText initial text
      * @param cont container of the text field
      * @param constraints additional constraints on the container
      * @return the text field
      */
-    public static JTextField addTextField(Container cont, Object constraints) {
+    public static JTextField addTextField(int columns, String initialText, Container cont,
+            Object constraints) {
 
-        JTextField textField = new JTextField();
+        JTextField textField = new JTextField(columns);
+        textField.setText(initialText);
+
         if (cont != null) {
             cont.add(textField);
         }
@@ -140,7 +173,7 @@ public final class SwingUtils {
      */
     public static JSlider createSlider(Container owner, int minimumValue, int maximumValue,
             int currentValue, int ticksSpacing, boolean paintTicks) {
-    
+
         JSlider jSlider = new JSlider();
         jSlider.setMinimum(minimumValue);
         jSlider.setMaximum(maximumValue);
