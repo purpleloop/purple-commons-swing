@@ -1,4 +1,4 @@
-package purpleloop.commons.swing.sprites;
+package io.github.purpleloop.commons.swing.sprites;
 
 /**
  * Image used for animation purposes.

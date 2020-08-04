@@ -1,4 +1,4 @@
-package purpleloop.commons.swing.sprites;
+package io.github.purpleloop.commons.swing.sprites;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -12,9 +12,9 @@ import java.util.Map;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import purpleloop.commons.exception.PurpleException;
-import purpleloop.commons.swing.image.ImageUtils;
-import purpleloop.commons.xml.XMLTools;
+import io.github.purpleloop.commons.exception.PurpleException;
+import io.github.purpleloop.commons.swing.image.ImageUtils;
+import io.github.purpleloop.commons.xml.XMLTools;
 
 /**
  * This class defines a sprite set that can be used for animation purposes. A

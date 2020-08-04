@@ -1,10 +1,10 @@
-module purpleloop.commons.swing {
+module io.github.purpleloop.commons.swing {
 
-    exports purpleloop.commons.swing;
-    exports purpleloop.commons.swing.image;
-    exports purpleloop.commons.swing.sprites;
+    exports io.github.purpleloop.commons.swing;
+    exports io.github.purpleloop.commons.swing.image;
+    exports io.github.purpleloop.commons.swing.sprites;
 
     requires transitive java.desktop;
-    requires transitive purpleloop.commons;
+    requires transitive io.github.purpleloop.commons;
     requires commons.logging;
 }

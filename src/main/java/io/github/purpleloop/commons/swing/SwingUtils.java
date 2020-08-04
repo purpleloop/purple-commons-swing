@@ -1,4 +1,4 @@
-package purpleloop.commons.swing;
+package io.github.purpleloop.commons.swing;
 
 import java.awt.Container;
 import java.awt.event.ActionListener;

@@ -1,4 +1,4 @@
-package purpleloop.commons.swing.image;
+package io.github.purpleloop.commons.swing.image;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
@@ -13,7 +13,7 @@ import javax.imageio.stream.FileImageOutputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import purpleloop.commons.exception.PurpleException;
+import io.github.purpleloop.commons.exception.PurpleException;
 
 /** Utilities for images. */
 public final class ImageUtils {
