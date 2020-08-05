@@ -1,6 +1,7 @@
 module io.github.purpleloop.commons.swing {
 
     exports io.github.purpleloop.commons.swing;
+    exports io.github.purpleloop.commons.swing.color;
     exports io.github.purpleloop.commons.swing.image;
     exports io.github.purpleloop.commons.swing.sprites;
 
