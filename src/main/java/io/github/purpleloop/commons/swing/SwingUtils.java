@@ -1,6 +1,8 @@
 package io.github.purpleloop.commons.swing;
 
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
 import javax.swing.Action;
@@ -12,12 +14,30 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /** Utilities for Swing UI. */
 public final class SwingUtils {
+
+    /** Message type with different levels. */
+    public enum MessageType {
+
+        /** An error message - To be displayed with an error dialog. */
+        ERROR,
+
+        /** A warning message - To be displayed with a warning dialog. */
+        WARN,
+
+        /** An informative message - To be displayed in an info dialog. */
+        INFO,
+
+        /** A simple trace message. */
+        TRACE;
+    }
 
     /** Private constructor. */
     private SwingUtils() {
@@ -243,6 +263,35 @@ public final class SwingUtils {
         owner.add(rbt);
         group.add(rbt);
         return rbt;
+    }
+
+    /**
+     * Handles a message in a context of a component with a console (TextArea).
+     * 
+     * @param parentComponent parent component
+     * @param messageType the type of the message
+     * @param message the text of the message
+     * @param console a communication TextArea (console)
+     */
+    public static void displayMessage(Component parentComponent, MessageType messageType,
+            String message, JTextArea console) {
+        if (messageType == MessageType.ERROR) {
+
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(parentComponent, message, "Error message",
+                    JOptionPane.ERROR_MESSAGE);
+        } else if (messageType == MessageType.WARN) {
+
+            JOptionPane.showMessageDialog(parentComponent, message, "Warning message",
+                    JOptionPane.WARNING_MESSAGE);
+
+        } else if (messageType == MessageType.INFO) {
+
+            JOptionPane.showMessageDialog(parentComponent, message, "Message",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            console.append(message + "\n");
+        }
     }
 
 }
