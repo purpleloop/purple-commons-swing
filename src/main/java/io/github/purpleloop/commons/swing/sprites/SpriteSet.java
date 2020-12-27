@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,172 +23,220 @@ import io.github.purpleloop.commons.xml.XMLTools;
  */
 public class SpriteSet {
 
-    /** The default zoom factor. */
-    private static final int DEFAULT_ZOOM_FACTOR = 1;
+	/** The default zoom factor. */
+	private static final int DEFAULT_ZOOM_FACTOR = 1;
 
-    /** The image containing the sprites. */
-    private Image source;
+	/** The image containing the sprites. */
+	private Image source;
 
-    /** Sprite names mapping. */
-    private Map<String, Sprite> sprites;
+	/** Sprite names mapping. */
+	private Map<String, Sprite> sprites;
 
-    /** Zoom factor for rendering. */
-    double zoomFactor;
+	/** Properties for sprite set use. */
+	private Properties properties;
 
-    /**
-     * Creates a sprite set with the file whose name is given as source.
-     * 
-     * @param spriteFileName Sprite file name
-     * @throws PurpleException in case of problems during creation
-     */
-    public SpriteSet(String spriteFileName) throws PurpleException {
-        this(ImageUtils.loadImageFromFile(spriteFileName));
-    }
+	/** Zoom factor for rendering. */
+	double zoomFactor;
 
-    /**
-     * Creates a sprite set with the given image as source.
-     * 
-     * @param spriteSource Sprite source
-     */
-    public SpriteSet(Image spriteSource) {
-        source = spriteSource;
-        sprites = new HashMap<String, Sprite>();
-        zoomFactor = DEFAULT_ZOOM_FACTOR;
-    }
+	/**
+	 * Creates a sprite set with the file whose name is given as source.
+	 * 
+	 * @param spriteFileName Sprite file name
+	 * @throws PurpleException in case of problems during creation
+	 */
+	public SpriteSet(String spriteFileName) throws PurpleException {
+		this(ImageUtils.loadImageFromFile(spriteFileName));
+	}
 
-    /**
-     * Adds a new sprite to the SpriteSet.
-     * 
-     * @param sprite Sprite
-     * 
-     */
-    public void addSprite(Sprite sprite) {
-        sprites.put(sprite.getName(), sprite);
-    }
+	/**
+	 * Creates a sprite set with the given image as source.
+	 * 
+	 * @param spriteSource Sprite source
+	 */
+	public SpriteSet(Image spriteSource) {
+		properties = new Properties();
+		source = spriteSource;
+		sprites = new HashMap<String, Sprite>();
+		zoomFactor = DEFAULT_ZOOM_FACTOR;
+	}
 
-    /**
-     * Adds a new sprite to the SpriteSet.
-     * 
-     * @param name Sprite name
-     * @param sprite Sprite
-     * 
-     * @deprecated for existing unnamed sprite compatibility
-     */
-    @Deprecated
-    public void addSprite(String name, Sprite sprite) {
-        sprite.setName(name);
-        addSprite(sprite);
-    }
+	/**
+	 * Adds a new sprite to the SpriteSet.
+	 * 
+	 * @param sprite Sprite
+	 * 
+	 */
+	public void addSprite(Sprite sprite) {
+		sprites.put(sprite.getName(), sprite);
+	}
 
-    /**
-     * Sets the zoom factor.
-     * 
-     * @param zoom Zoom factor to use
-     */
-    public void setZoomFactor(double zoom) {
-        zoomFactor = zoom;
-    }
+	/**
+	 * Adds a new sprite to the SpriteSet.
+	 * 
+	 * @param name   Sprite name
+	 * @param sprite Sprite
+	 * 
+	 * @deprecated for existing unnamed sprite compatibility
+	 */
+	@Deprecated
+	public void addSprite(String name, Sprite sprite) {
+		sprite.setName(name);
+		addSprite(sprite);
+	}
 
-    /**
-     * Gives the collection of names of all registered sprites.
-     * 
-     * @return collection of sprite names
-     */
-    public Collection<String> getSpritesNames() {
-        return sprites.keySet();
-    }
+	/**
+	 * Sets the zoom factor.
+	 * 
+	 * @param zoom Zoom factor to use
+	 */
+	public void setZoomFactor(double zoom) {
+		zoomFactor = zoom;
+	}
 
-    /** @return the image source or this sprite set */
-    public Image getSourceImage() {
-        return source;
-    }
+	/**
+	 * Gives the collection of names of all registered sprites.
+	 * 
+	 * @return collection of sprite names
+	 */
+	public Collection<String> getSpritesNames() {
+		return sprites.keySet();
+	}
 
-    /**
-     * Renders the requested sprite, given by it's name, on given coordinates.
-     * 
-     * @param canvas Graphic canvas where to do the rendering
-     * @param spriteName name of the sprite to render
-     * @param imageObserver ImageObserver to notify once drawing has been done
-     * @param x horizontal location
-     * @param y vertical location
-     */
-    public void putSprite(Graphics canvas, ImageObserver imageObserver, String spriteName, int x,
-            int y) {
-        Sprite spriteToRender = sprites.get(spriteName);
-        if (spriteToRender == null) {
-            throw new RuntimeException(
-                    "There is no sprite named '" + spriteName + "' in this SpriteSet.");
-        }
+	/** @return the image source or this sprite set */
+	public Image getSourceImage() {
+		return source;
+	}
 
-        canvas.drawImage(source, x, y, (int) (x + spriteToRender.getWidth() * zoomFactor),
-                (int) (y + spriteToRender.getHeight() * zoomFactor), spriteToRender.ox,
-                spriteToRender.oy, spriteToRender.ox + spriteToRender.getWidth(),
-                spriteToRender.oy + spriteToRender.getHeight(), imageObserver);
-    }
+	/**
+	 * Renders the requested sprite, given by it's name, on given coordinates.
+	 * 
+	 * @param canvas        Graphic canvas where to do the rendering
+	 * @param spriteName    name of the sprite to render
+	 * @param imageObserver ImageObserver to notify once drawing has been done
+	 * @param x             horizontal location
+	 * @param y             vertical location
+	 */
+	public void putSprite(Graphics canvas, ImageObserver imageObserver, String spriteName, int x, int y) {
+		Sprite spriteToRender = sprites.get(spriteName);
+		if (spriteToRender == null) {
+			throw new RuntimeException("There is no sprite named '" + spriteName + "' in this SpriteSet.");
+		}
 
-    /**
-     * Exports the sprite set to an XML file.
-     * 
-     * @param fileName the destination file
-     * @throws PurpleException in case of problems
-     */
-    public void saveSpritesTo(String fileName) throws PurpleException {
+		canvas.drawImage(source, x, y, (int) (x + spriteToRender.getWidth() * zoomFactor),
+				(int) (y + spriteToRender.getHeight() * zoomFactor), spriteToRender.ox, spriteToRender.oy,
+				spriteToRender.ox + spriteToRender.getWidth(), spriteToRender.oy + spriteToRender.getHeight(),
+				imageObserver);
+	}
 
-        File file = Paths.get(fileName).toFile();
+	/**
+	 * Exports the sprite set to an XML file.
+	 * 
+	 * @param fileName the destination file
+	 * @throws PurpleException in case of problems
+	 */
+	public void saveSpritesTo(String fileName) throws PurpleException {
 
-        Document document = XMLTools.createDocument();
+		File file = Paths.get(fileName).toFile();
 
-        Element root = document.createElement("sprite-set");
-        document.appendChild(root);
+		Document document = XMLTools.createDocument();
 
-        sprites.forEach(
-                (spriteName, sprite) -> root.appendChild(createSpriteXmlElement(document, sprite)));
+		Element root = document.createElement("sprite-set");
+		document.appendChild(root);
 
-        XMLTools.writeXmlFile(document, file, XMLTools.DEFAULT_UTF8_OUTPUT);
-    }
+		sprites.forEach((spriteName, sprite) -> root.appendChild(createSpriteXmlElement(document, sprite)));
 
-    /**
-     * Creates an XML element for a sprite.
-     * 
-     * @param document owner XML document
-     * @param sprite the sprite to export
-     * @return XML sprite element
-     */
-    private Element createSpriteXmlElement(Document document, Sprite sprite) {
-        Element spriteElement = document.createElement("sprite");
-        spriteElement.setAttribute("name", sprite.getName());
-        spriteElement.setAttribute("width", Integer.toString(sprite.getWidth()));
-        spriteElement.setAttribute("height", Integer.toString(sprite.getHeight()));
-        spriteElement.setAttribute("ox", Integer.toString(sprite.getOx()));
-        spriteElement.setAttribute("oy", Integer.toString(sprite.getOy()));
-        return spriteElement;
-    }
+		XMLTools.writeXmlFile(document, file, XMLTools.DEFAULT_UTF8_OUTPUT);
+	}
 
-    /** Loads a sprite set from a file.
-     * 
-     *  @param fileName name of the XML file containing the sprite set description
-     *  
-     */
-    public void loadSpritesFrom(String fileName) throws PurpleException {
+	/**
+	 * Creates an XML element for a sprite.
+	 * 
+	 * @param document owner XML document
+	 * @param sprite   the sprite to export
+	 * @return XML sprite element
+	 */
+	private Element createSpriteXmlElement(Document document, Sprite sprite) {
+		Element spriteElement = document.createElement("sprite");
+		spriteElement.setAttribute("name", sprite.getName());
+		spriteElement.setAttribute("width", Integer.toString(sprite.getWidth()));
+		spriteElement.setAttribute("height", Integer.toString(sprite.getHeight()));
+		spriteElement.setAttribute("ox", Integer.toString(sprite.getOx()));
+		spriteElement.setAttribute("oy", Integer.toString(sprite.getOy()));
+		return spriteElement;
+	}
 
-        File file = Paths.get(fileName).toFile();
+	/**
+	 * Loads a sprite set from a file.
+	 * 
+	 * @param fileName name of the XML file containing the sprite set description
+	 * 
+	 */
+	public void loadSpritesFrom(String fileName) throws PurpleException {
 
-        if (!file.canRead()) {
-            throw new PurpleException(
-                    "The file " + file.getAbsolutePath() + " can't be read.");
-        }
+		File file = Paths.get(fileName).toFile();
 
-        Document document = XMLTools.getDocument(file);
+		if (!file.canRead()) {
+			throw new PurpleException("The file " + file.getAbsolutePath() + " can't be read.");
+		}
 
-        Element spriteSetElement = document.getDocumentElement();
-        XMLTools.getChildElementsStream(spriteSetElement)
-                .map(element -> new Sprite(element.getAttribute("name"),
-                        Integer.parseInt(element.getAttribute("ox")),
-                        Integer.parseInt(element.getAttribute("oy")),
-                        Integer.parseInt(element.getAttribute("width")),
-                        Integer.parseInt(element.getAttribute("height"))))
-                .forEach(sprite -> addSprite(sprite));
+		Document document = XMLTools.getDocument(file);
 
-    }
+		Element spriteSetElement = document.getDocumentElement();
+
+		// Loads properties
+		Element propertiesElements = XMLTools.getUniqueChildElement(spriteSetElement, "properties", true);
+		XMLTools.getChildElementsStream(propertiesElements).forEach(propertyElement -> {
+			String textContent = propertyElement.getTextContent();
+			properties.put(propertyElement.getNodeName(), textContent);
+		});
+
+		// Loads sprites
+		Element spriteElements = XMLTools.getUniqueChildElement(spriteSetElement, "sprites", true);
+		spritesFromElement(spriteElements);
+
+	}
+
+	/**
+	 * Reads sprites from a sprite XML Element.
+	 * 
+	 * @param spriteElement the XML Element
+	 */
+	private void spritesFromElement(Element spriteElements) {
+		for (Element spriteElement : XMLTools.getChildElements(spriteElements)) {
+
+			String nodeName = spriteElement.getNodeName();
+			if (nodeName.equals("sprite-grid")) {
+
+				SpriteGrid grid = new SpriteGrid(spriteElement);
+				for (Sprite sprite : grid.getSprites()) {
+					addSprite(sprite);
+				}
+
+			} else if (nodeName.equals("sprite")) {
+
+				addSprite(spriteFromElement(spriteElement));
+			}
+
+		}
+	}
+
+	/**
+	 * Reads a sprite from a sprite XML Element.
+	 * 
+	 * @param spriteElement the XML Element
+	 */
+	private Sprite spriteFromElement(Element element) {
+		return new Sprite(element.getAttribute("name"), Integer.parseInt(element.getAttribute("ox")),
+				Integer.parseInt(element.getAttribute("oy")), Integer.parseInt(element.getAttribute("width")),
+				Integer.parseInt(element.getAttribute("height")));
+	}
+
+	/**
+	 * @param key property key
+	 * @return property value
+	 */
+	public String getProperty(String key) {
+		return properties.getProperty(key);
+	}
 
 }
