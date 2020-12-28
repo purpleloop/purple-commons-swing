@@ -18,164 +18,162 @@ import io.github.purpleloop.commons.exception.PurpleException;
 /** Utilities for images. */
 public final class ImageUtils {
 
-    /** Supported image file formats. */
-    public enum FileFormat {
+	/** Supported image file formats. */
+	public enum FileFormat {
 
-        /** Jpeg file format. */
-        JPG,
+		/** BMP file format. */
+		BMP,
 
-        /** BMP file format. */
-        BMP,
+		/** GIF file format. */
+		GIF,
 
-        /** GIF file format. */
-        GIF;
-    }
+		/** Jpeg file format. */
+		JPG,
 
-    /** Class logger. */
-    private static final Log LOG = LogFactory.getLog(ImageUtils.class);
+		/** PNG file format. */
+		PNG;
+	}
 
-    /** Private constructor. */
-    private ImageUtils() {
-    }
+	/** Class logger. */
+	private static final Log LOG = LogFactory.getLog(ImageUtils.class);
 
-    /**
-     * Loads an image from a local file given by it's path.
-     * 
-     * @param imageFilePath path of the local image file to load
-     * @return image (BufferedImage instance)
-     * @throws PurpleException in case of problem
-     */
-    public static BufferedImage loadImageFromFile(Path imageFilePath) throws PurpleException {
-        return loadImageFromFile(imageFilePath.toFile());
-    }
+	/** Private constructor. */
+	private ImageUtils() {
+	}
 
-    /**
-     * Loads an image from a local file.
-     * 
-     * @param imageFileName name of the local image file to load
-     * @return image (BufferedImage instance)
-     * @throws PurpleException in case of problem
-     */
-    public static BufferedImage loadImageFromFile(String imageFileName) throws PurpleException {
-        return loadImageFromFile(new File(imageFileName));
-    }
+	/**
+	 * Loads an image from a local file given by it's path.
+	 * 
+	 * @param imageFilePath path of the local image file to load
+	 * @return image (BufferedImage instance)
+	 * @throws PurpleException in case of problem
+	 */
+	public static BufferedImage loadImageFromFile(Path imageFilePath) throws PurpleException {
+		return loadImageFromFile(imageFilePath.toFile());
+	}
 
-    /**
-     * Loads an image from a local file.
-     * 
-     * @param imageFile the local image file to load
-     * @return image (BufferedImage instance)
-     * @throws PurpleException in case of problem
-     */
-    public static BufferedImage loadImageFromFile(File imageFile) throws PurpleException {
+	/**
+	 * Loads an image from a local file.
+	 * 
+	 * @param imageFileName name of the local image file to load
+	 * @return image (BufferedImage instance)
+	 * @throws PurpleException in case of problem
+	 */
+	public static BufferedImage loadImageFromFile(String imageFileName) throws PurpleException {
+		return loadImageFromFile(new File(imageFileName));
+	}
 
-        BufferedImage bufferedImageResult = null;
-        PurpleException purpleException = null;
-        FileImageInputStream fileImageInputStream = null;
+	/**
+	 * Loads an image from a local file.
+	 * 
+	 * @param imageFile the local image file to load
+	 * @return image (BufferedImage instance)
+	 * @throws PurpleException in case of problem
+	 */
+	public static BufferedImage loadImageFromFile(File imageFile) throws PurpleException {
 
-        String absolutePath = imageFile.getAbsolutePath();
+		BufferedImage bufferedImageResult = null;
+		PurpleException purpleException = null;
+		FileImageInputStream fileImageInputStream = null;
 
-        if (!imageFile.canRead()) {
-            throw new PurpleException("Image file " + absolutePath + " is not readable.");
-        }
+		String absolutePath = imageFile.getAbsolutePath();
 
-        LOG.info("Loading image file from " + absolutePath);
+		if (!imageFile.canRead()) {
+			throw new PurpleException("Image file " + absolutePath + " is not readable.");
+		}
 
-        // We can'y use the auto-closable feature on the try/catch.
-        // The 'read' method can closes the stream and this leads auto-close to
-        // rise an IOException (closed).
-        try {
+		LOG.info("Loading image file from " + absolutePath);
 
-            fileImageInputStream = new FileImageInputStream(imageFile);
+		// We can'y use the auto-closable feature on the try/catch.
+		// The 'read' method can closes the stream and this leads auto-close to
+		// rise an IOException (closed).
+		try {
 
-            // See the warning in the java-doc about closing behavior
-            bufferedImageResult = ImageIO.read(fileImageInputStream);
+			fileImageInputStream = new FileImageInputStream(imageFile);
 
-            // Tests if a close operation is required (loading has failed)
-            if (bufferedImageResult != null) {
-                fileImageInputStream = null;
-            }
+			// See the warning in the java-doc about closing behavior
+			bufferedImageResult = ImageIO.read(fileImageInputStream);
 
-        } catch (IOException ex) {
-            LOG.error("Error while reading image file " + absolutePath, ex);
-            purpleException = new PurpleException("Error while reading image file :" + absolutePath,
-                    ex);
-        } finally {
+			// Tests if a close operation is required (loading has failed)
+			if (bufferedImageResult != null) {
+				fileImageInputStream = null;
+			}
 
-            // Explicit close
-            if (fileImageInputStream != null) {
-                try {
-                    fileImageInputStream.close();
-                } catch (IOException e) {
-                    if (purpleException == null) {
-                        purpleException = new PurpleException("Unable to close the image file", e);
-                    } else {
-                        LOG.error(
-                                "Subsequent close error on image file while throwing another exception",
-                                e);
-                    }
-                }
-                fileImageInputStream = null;
-            }
+		} catch (IOException ex) {
+			LOG.error("Error while reading image file " + absolutePath, ex);
+			purpleException = new PurpleException("Error while reading image file :" + absolutePath, ex);
+		} finally {
 
-            if (purpleException != null) {
-                throw purpleException;
-            }
-        }
+			// Explicit close
+			if (fileImageInputStream != null) {
+				try {
+					fileImageInputStream.close();
+				} catch (IOException e) {
+					if (purpleException == null) {
+						purpleException = new PurpleException("Unable to close the image file", e);
+					} else {
+						LOG.error("Subsequent close error on image file while throwing another exception", e);
+					}
+				}
+				fileImageInputStream = null;
+			}
 
-        return bufferedImageResult;
+			if (purpleException != null) {
+				throw purpleException;
+			}
+		}
 
-    }
+		return bufferedImageResult;
 
-    /**
-     * Saves a rendered image to a local file.
-     * 
-     * @param imageToSave the rendered image to save (typically a BufferedImage)
-     * @param imageFilePath path of the destination file where to save the image
-     * @param imageFileFormat file format used to save the image
-     * @throws PurpleException in case of problem
-     */
-    public static void saveImageToFile(RenderedImage imageToSave, Path imageFilePath,
-            FileFormat imageFileFormat) throws PurpleException {
-        saveImageToFile(imageToSave, imageFilePath.toFile(), imageFileFormat);
-    }
+	}
 
-    /**
-     * Saves a rendered image to a local file.
-     * 
-     * @param imageToSave the rendered image to save (typically a BufferedImage)
-     * @param fileNameToWrite name of the destination file where to save the
-     *            image
-     * @param imageFileFormat file format used to save the image
-     * @throws PurpleException in case of problem
-     */
-    public static void saveImageToFile(RenderedImage imageToSave, String imageFileName,
-            FileFormat imageFileFormat) throws PurpleException {
-        saveImageToFile(imageToSave, new File(imageFileName), imageFileFormat);
-    }
+	/**
+	 * Saves a rendered image to a local file.
+	 * 
+	 * @param imageToSave     the rendered image to save (typically a BufferedImage)
+	 * @param imageFilePath   path of the destination file where to save the image
+	 * @param imageFileFormat file format used to save the image
+	 * @throws PurpleException in case of problem
+	 */
+	public static void saveImageToFile(RenderedImage imageToSave, Path imageFilePath, FileFormat imageFileFormat)
+			throws PurpleException {
+		saveImageToFile(imageToSave, imageFilePath.toFile(), imageFileFormat);
+	}
 
-    /**
-     * Saves a rendered image to a local file.
-     * 
-     * @param imageToSave the rendered image to save (typically a BufferedImage)
-     * @param fileToWrite the destination file where to save the image
-     * @param imageFileFormat file format used to save the image
-     * @throws PurpleException in case of problem
-     */
-    public static void saveImageToFile(RenderedImage imageToSave, File fileToWrite,
-            FileFormat imageFileFormat) throws PurpleException {
+	/**
+	 * Saves a rendered image to a local file.
+	 * 
+	 * @param imageToSave     the rendered image to save (typically a BufferedImage)
+	 * @param fileNameToWrite name of the destination file where to save the image
+	 * @param imageFileFormat file format used to save the image
+	 * @throws PurpleException in case of problem
+	 */
+	public static void saveImageToFile(RenderedImage imageToSave, String imageFileName, FileFormat imageFileFormat)
+			throws PurpleException {
+		saveImageToFile(imageToSave, new File(imageFileName), imageFileFormat);
+	}
 
-        String absolutePath = fileToWrite.getAbsolutePath();
+	/**
+	 * Saves a rendered image to a local file.
+	 * 
+	 * @param imageToSave     the rendered image to save (typically a BufferedImage)
+	 * @param fileToWrite     the destination file where to save the image
+	 * @param imageFileFormat file format used to save the image
+	 * @throws PurpleException in case of problem
+	 */
+	public static void saveImageToFile(RenderedImage imageToSave, File fileToWrite, FileFormat imageFileFormat)
+			throws PurpleException {
 
-        try (FileImageOutputStream fileImageOutputStream = new FileImageOutputStream(
-                fileToWrite);) {
+		String absolutePath = fileToWrite.getAbsolutePath();
 
-            LOG.info("Saving image to " + absolutePath);
+		try (FileImageOutputStream fileImageOutputStream = new FileImageOutputStream(fileToWrite);) {
 
-            ImageIO.write(imageToSave, imageFileFormat.name(), fileImageOutputStream);
-        } catch (IOException e) {
-            throw new PurpleException("Error writing file " + absolutePath, e);
-        }
-    }
+			LOG.info("Saving image to " + absolutePath);
+
+			ImageIO.write(imageToSave, imageFileFormat.name(), fileImageOutputStream);
+		} catch (IOException e) {
+			throw new PurpleException("Error writing file " + absolutePath, e);
+		}
+	}
 
 }

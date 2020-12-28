@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!-- Sprite set test with hexa numbers spread in a sprite grid. -->
+<sprite-set>
+	<properties>
+		<foo>something</foo>
+	</properties>
+	<sprites>
+		<sprite-grid ox="5" oy="8" cellWidth="5" cellHeight="7"
+			cellHorizontalSpacing="3" cellVerticalSpacing="2" numColumns="4"
+			numRows="3">
+			<sprite-cell name="0" x="3" y="0" />
+			<sprite-cell name="1" x="2" y="2" />
+			<sprite-cell name="2" x="1" y="2" />
+			<sprite-cell name="3" x="1" y="0" />
+			<sprite-cell name="4" x="0" y="2" />
+			<sprite-cell name="5" x="0" y="1" />
+			<sprite-cell name="6" x="1" y="1" />
+			<sprite-cell name="7" x="2" y="0" />
+			<sprite-cell name="8" x="0" y="0" />
+			<sprite-cell name="9" x="2" y="1" />
+			<sprite-cell name="A" x="3" y="1" />
+			<sprite-cell name="B" x="3" y="2" />
+		</sprite-grid>
+	</sprites>
+</sprite-set>
