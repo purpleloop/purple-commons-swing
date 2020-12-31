@@ -3,6 +3,8 @@ package io.github.purpleloop.commons.swing.sprites;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Element;
 
 import io.github.purpleloop.commons.xml.XMLTools;
@@ -12,6 +14,9 @@ import io.github.purpleloop.commons.xml.XMLTools;
  * This grid work as a a container for sprites.
  */
 public class SpriteGrid {
+
+	/** Logger for the class. */
+	private static final Log LOG = LogFactory.getLog(SpriteGrid.class);
 
 	/** Horizontal origin. */
 	private int ox;
@@ -39,7 +44,7 @@ public class SpriteGrid {
 
 	/** Cells used as container for sprites. */
 	private Sprite[][] spriteCells;
-	
+
 	/**
 	 * Reads a sprite grid from XML.
 	 * 
@@ -68,6 +73,13 @@ public class SpriteGrid {
 
 			String spriteName = spriteCellElement.getAttribute("name");
 			Sprite sprite = new Sprite(spriteName, sox, soy, cellWidth, cellHeight);
+
+			Sprite previousContents = spriteCells[column][row];
+			if (previousContents != null) {
+				LOG.warn("Cell at (" + column + "," + row + ") is overrided : Sprite '" + previousContents.getName()
+						+ "' will be lost.");
+			}
+
 			spriteCells[column][row] = sprite;
 		}
 
@@ -118,7 +130,10 @@ public class SpriteGrid {
 		return cellHorizontalSpacing;
 	}
 
-	/** @param cellHorizontalSpacing Horizontal spacing between two cells of the grid. */
+	/**
+	 * @param cellHorizontalSpacing Horizontal spacing between two cells of the
+	 *                              grid.
+	 */
 	public void setCellHorizontalSpacing(int cellHorizontalSpacing) {
 		this.cellHorizontalSpacing = cellHorizontalSpacing;
 	}
@@ -128,7 +143,9 @@ public class SpriteGrid {
 		return cellVerticalSpacing;
 	}
 
-	/** @param cellVerticalSpacing Vertical spacing between two cells of the grid. */
+	/**
+	 * @param cellVerticalSpacing Vertical spacing between two cells of the grid.
+	 */
 	public void setCellVerticalSpacing(int cellVerticalSpacing) {
 		this.cellVerticalSpacing = cellVerticalSpacing;
 	}
