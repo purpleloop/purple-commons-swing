@@ -50,20 +50,20 @@ public class SpriteGrid {
 	 * 
 	 * @param spriteGridElement the spriteGridElement
 	 */
-	public SpriteGrid(Element spriteElement) {
-		this.ox = Integer.parseInt(spriteElement.getAttribute("ox"));
-		this.oy = Integer.parseInt(spriteElement.getAttribute("oy"));
-		this.numColumns = Integer.parseInt(spriteElement.getAttribute("numColumns"));
-		this.numRows = Integer.parseInt(spriteElement.getAttribute("numRows"));
+	public SpriteGrid(Element spriteGridElement) {
+		this.ox = Integer.parseInt(spriteGridElement.getAttribute("ox"));
+		this.oy = Integer.parseInt(spriteGridElement.getAttribute("oy"));
+		this.numColumns = Integer.parseInt(spriteGridElement.getAttribute("numColumns"));
+		this.numRows = Integer.parseInt(spriteGridElement.getAttribute("numRows"));
 
-		this.cellWidth = Integer.parseInt(spriteElement.getAttribute("cellWidth"));
-		this.cellHeight = Integer.parseInt(spriteElement.getAttribute("cellHeight"));
-		this.cellHorizontalSpacing = Integer.parseInt(spriteElement.getAttribute("cellHorizontalSpacing"));
-		this.cellVerticalSpacing = Integer.parseInt(spriteElement.getAttribute("cellVerticalSpacing"));
+		this.cellWidth = Integer.parseInt(spriteGridElement.getAttribute("cellWidth"));
+		this.cellHeight = Integer.parseInt(spriteGridElement.getAttribute("cellHeight"));
+		this.cellHorizontalSpacing = Integer.parseInt(spriteGridElement.getAttribute("cellHorizontalSpacing"));
+		this.cellVerticalSpacing = Integer.parseInt(spriteGridElement.getAttribute("cellVerticalSpacing"));
 
 		spriteCells = new Sprite[numColumns][numRows];
 
-		for (Element spriteCellElement : XMLTools.getChildElements(spriteElement)) {
+		for (Element spriteCellElement : XMLTools.getChildElements(spriteGridElement)) {
 
 			int column = Integer.parseInt(spriteCellElement.getAttribute("x"));
 			int row = Integer.parseInt(spriteCellElement.getAttribute("y"));

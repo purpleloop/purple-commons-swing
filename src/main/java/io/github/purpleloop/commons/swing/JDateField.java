@@ -18,7 +18,7 @@ public class JDateField extends JTextField {
     private static final long serialVersionUID = 1130478724134085824L;
 
     /**
-     * Sets the date
+     * Sets the date.
      * 
      * @param date the date to set
      */

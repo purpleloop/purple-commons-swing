@@ -144,7 +144,7 @@ public final class ImageUtils {
 	 * Saves a rendered image to a local file.
 	 * 
 	 * @param imageToSave     the rendered image to save (typically a BufferedImage)
-	 * @param fileNameToWrite name of the destination file where to save the image
+	 * @param imageFileName name of the destination file where to save the image
 	 * @param imageFileFormat file format used to save the image
 	 * @throws PurpleException in case of problem
 	 */

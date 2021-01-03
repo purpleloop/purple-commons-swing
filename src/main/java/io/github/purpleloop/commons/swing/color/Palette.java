@@ -28,7 +28,7 @@ public class Palette {
     }
 
     /**
-     * Creates a palette from an indexed color model (ICM)
+     * Creates a palette from an indexed color model (ICM).
      * 
      * @param icm the indexed color model (ICM)
      */

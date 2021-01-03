@@ -6,7 +6,12 @@ import io.github.purpleloop.commons.util.HexTools;
 
 /** Utilities for AWT/Swing colors. */
 public final class ColorUtils {
-    
+	
+	/** Private constructor. */
+	private ColorUtils() {
+		// Nothing here
+	}
+
     /**
      * Creates a AWT color from an hexadecimal RGB/RGBA value.
      * 

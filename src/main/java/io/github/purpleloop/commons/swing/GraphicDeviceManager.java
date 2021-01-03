@@ -149,7 +149,7 @@ public final class GraphicDeviceManager {
     }
 
     /**
-     * Initializes the display adapting the given JFrame
+     * Initializes the display adapting the given JFrame.
      * 
      * @param frame the JFrame to adapt
      * @param stopIfFailed Should we do a low level JVM stop in case of error ?

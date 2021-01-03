@@ -199,7 +199,7 @@ public class SpriteSet {
 	/**
 	 * Reads sprites from a sprite XML Element.
 	 * 
-	 * @param spriteElement the XML Element
+	 * @param spriteElements the XML Elements
 	 */
 	private void spritesFromElement(Element spriteElements) {
 		for (Element spriteElement : XMLTools.getChildElements(spriteElements)) {
@@ -224,11 +224,13 @@ public class SpriteSet {
 	 * Reads a sprite from a sprite XML Element.
 	 * 
 	 * @param spriteElement the XML Element
+	 * @return the sprite
 	 */
-	private Sprite spriteFromElement(Element element) {
-		return new Sprite(element.getAttribute("name"), Integer.parseInt(element.getAttribute("ox")),
-				Integer.parseInt(element.getAttribute("oy")), Integer.parseInt(element.getAttribute("width")),
-				Integer.parseInt(element.getAttribute("height")));
+	private Sprite spriteFromElement(Element spriteElement) {
+		return new Sprite(spriteElement.getAttribute("name"), Integer.parseInt(spriteElement.getAttribute("ox")),
+				Integer.parseInt(spriteElement.getAttribute("oy")),
+				Integer.parseInt(spriteElement.getAttribute("width")),
+				Integer.parseInt(spriteElement.getAttribute("height")));
 	}
 
 	/**
@@ -237,6 +239,16 @@ public class SpriteSet {
 	 */
 	public String getProperty(String key) {
 		return properties.getProperty(key);
+	}
+
+	/**
+	 * Gets a sprite by it's name.
+	 * 
+	 * @param spriteName the sprite name
+	 * @return the requested sprite if it exists, null otherwise
+	 */
+	public Sprite getSprite(String spriteName) {
+		return sprites.get(spriteName);
 	}
 
 }
