@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -24,6 +26,9 @@ import io.github.purpleloop.commons.xml.XMLTools;
  * sprite is a named image chunk.
  */
 public class SpriteSet {
+        
+    /** Logger of the class. */
+    private static final Log LOG = LogFactory.getLog(SpriteSet.class);
 
     /** The default zoom factor. */
     private static final int DEFAULT_ZOOM_FACTOR = 1;
@@ -69,6 +74,8 @@ public class SpriteSet {
      * 
      */
     public void addSprite(Sprite sprite) {
+
+        LOG.debug("Registering sprite " + sprite.toString());
         sprites.put(sprite.getName(), sprite);
     }
 
