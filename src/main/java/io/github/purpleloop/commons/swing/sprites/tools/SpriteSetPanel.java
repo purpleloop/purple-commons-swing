@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Optional;
 
 import javax.swing.JPanel;
 
@@ -48,10 +49,11 @@ public class SpriteSetPanel extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		SpriteSet spriteSet = spriteSetManager.getSpriteSet();
+		Optional<SpriteSet> spriteSetOptional = spriteSetManager.getSpriteSet();
 		
-		if (spriteSet != null) {
-			Image image = spriteSet.getSourceImage();
+		if (spriteSetOptional.isPresent()) {
+			SpriteSet spriteSet = spriteSetOptional.get();
+            Image image = spriteSet.getSourceImage();
 
 			g.drawImage(image, 0, 0, this);
 
@@ -77,8 +79,9 @@ public class SpriteSetPanel extends JPanel {
 	/** Adjusts the panel dimensions to fit the image of the sprite set. */
 	public void ajustToSpriteSetImage() {
 
-		SpriteSet spriteSet = spriteSetManager.getSpriteSet();
-		if (spriteSet != null) {
+	    Optional<SpriteSet> spriteSetOptional = spriteSetManager.getSpriteSet();
+		if (spriteSetOptional.isPresent()) {
+		    SpriteSet spriteSet = spriteSetOptional.get();
 			Image image = spriteSet.getSourceImage();
 			setPreferredSize(new Dimension(image.getWidth(this), image.getHeight(this)));
 		}

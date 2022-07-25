@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <!-- Sprite set test with hexa numbers spread in a sprite grid. -->
-<sprite-set>
+<spriteSet nextId="1">
 	<properties>
 		<foo>something</foo>
 	</properties>
-	<sprites>
-		<sprite-grid ox="5" oy="8" cellWidth="5" cellHeight="7"
-			cellHorizontalSpacing="3" cellVerticalSpacing="2" numColumns="4"
-			numRows="3">
-			<sprite-cell name="0" x="3" y="0" />
-			<sprite-cell name="1" x="2" y="2" />
-			<sprite-cell name="2" x="1" y="2" />
-			<sprite-cell name="3" x="1" y="0" />
-			<sprite-cell name="4" x="0" y="2" />
-			<sprite-cell name="5" x="0" y="1" />
-			<sprite-cell name="6" x="1" y="1" />
-			<sprite-cell name="7" x="2" y="0" />
-			<sprite-cell name="8" x="0" y="0" />
-			<sprite-cell name="9" x="2" y="1" />
-			<sprite-cell name="A" x="3" y="1" />
-			<sprite-cell name="B" x="3" y="2" />
-		</sprite-grid>
-	</sprites>
-</sprite-set>
+	<sourceImage path="sprite-sample-numbers.png" pathMode="CLASSPATH" />
+	<indexes>
+		<gridIndex id="0" sx="5" sy="8" cellWidth="5" cellHeight="7" numColumns="4" numRows="3"
+			hSpacing="3" vSpacing="2" >
+			<spriteCell name="0" x="3" y="0" />
+			<spriteCell name="1" x="2" y="2" />
+			<spriteCell name="2" x="1" y="2" />
+			<spriteCell name="3" x="1" y="0" />
+			<spriteCell name="4" x="0" y="2" />
+			<spriteCell name="5" x="0" y="1" />
+			<spriteCell name="6" x="1" y="1" />
+			<spriteCell name="7" x="2" y="0" />
+			<spriteCell name="8" x="0" y="0" />
+			<spriteCell name="9" x="2" y="1" />
+			<spriteCell name="A" x="3" y="1" />
+			<spriteCell name="B" x="3" y="2" />
+		</gridIndex>
+	</indexes>
+</spriteSet>

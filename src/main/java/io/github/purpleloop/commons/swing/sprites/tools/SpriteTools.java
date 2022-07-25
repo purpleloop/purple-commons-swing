@@ -12,7 +12,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -145,11 +144,6 @@ public class SpriteTools extends JFrame {
 
 	/** Opens a sprite set definition file. */
 	protected void openSpriteSet() {
-
-		if (!spriteSetManager.hasSpriteSet()) {
-			JOptionPane.showMessageDialog(this, "You must open an image first.", "Error", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
 
 		fileChooser.setDialogTitle("Choose a sprite set to open");
 		int userChoice = fileChooser.showOpenDialog(this);
