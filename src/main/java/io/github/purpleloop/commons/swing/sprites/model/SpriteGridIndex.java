@@ -50,7 +50,7 @@ public class SpriteGridIndex implements IndexedSpriteSet {
 
     /** DOM XML element for cell naming. */
     private static final String CELL_NAMING_ELEMENT = "spriteCell";
-    
+
     /** DOM XML attribute for cell naming name. */
     private static final String CELL_NAMING_NAME_ATTRIBUTE = "name";
 
@@ -202,7 +202,12 @@ public class SpriteGridIndex implements IndexedSpriteSet {
 
     /** @param numColumns Number of rows in the grid. */
     public void setNumColumns(int numColumns) {
+
+        int oldNumCols = this.numColumns;
+
         this.numColumns = numColumns;
+
+        preserveCellNames(Math.min(oldNumCols, numColumns), numRows);
     }
 
     /** @return Number of columns in the grid. */
@@ -212,7 +217,31 @@ public class SpriteGridIndex implements IndexedSpriteSet {
 
     /** @param numRows Number of columns in the grid. */
     public void setNumRows(int numRows) {
+
+        int oldNumRows = this.numRows;
+
         this.numRows = numRows;
+
+        preserveCellNames(numColumns, Math.min(oldNumRows, numRows));
+    }
+
+    /**
+     * Preserve cell names (preserve values on resize when cols/rows changes).
+     * 
+     * @param minNumCols the minimal (common) number of columns
+     * @param minNumCols the minimal (common) number of rows
+     */
+    private void preserveCellNames(int minNumCols, int minNumRows) {
+
+        String[][] oldCellNames = cellNames;
+
+        cellNames = new String[numColumns][numRows];
+
+        for (int y = 0; y < minNumRows; y++) {
+            for (int x = 0; x < minNumCols; x++) {
+                cellNames[x][y] = oldCellNames[x][y];
+            }
+        }
     }
 
     /**
