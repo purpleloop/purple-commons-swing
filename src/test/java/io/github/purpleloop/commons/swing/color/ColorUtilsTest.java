@@ -1,17 +1,17 @@
 package io.github.purpleloop.commons.swing.color;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.awt.Color;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Tests for AWT/Swing colors utilities. */
-public class ColorUtilsTest {
+class ColorUtilsTest {
 
     /** Tests hexa color conversion. */
     @Test
-    public void testAwtRGBColorFromHexStringREB() {
+    void testAwtRGBColorFromHexStringREB() {
         assertEquals(Color.BLACK, ColorUtils.awtRGBColorFromHexString("000000"));
         assertEquals(Color.RED, ColorUtils.awtRGBColorFromHexString("FF0000"));
         assertEquals(Color.GREEN, ColorUtils.awtRGBColorFromHexString("00FF00"));

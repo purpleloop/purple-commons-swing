@@ -1,6 +1,7 @@
 package io.github.purpleloop.commons.swing.sprites;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
@@ -8,15 +9,14 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import io.github.purpleloop.commons.exception.PurpleException;
 import io.github.purpleloop.commons.swing.image.ImageUtils;
 import io.github.purpleloop.commons.swing.sprites.model.SpriteModel;
 
 /** Tests on sprite sets. */
-public class SpriteSetTest {
+class SpriteSetTest {
 
     /** Number of hexa digits. */
     private static final int NUM_DIGITS = 11;
@@ -29,7 +29,7 @@ public class SpriteSetTest {
 
     /** Tests property. */
     @Test
-    public void testProperty() throws PurpleException, URISyntaxException {
+    void testProperty() throws PurpleException, URISyntaxException {
 
         SpriteModel spriteModel = new SpriteModel(
                 resolveResourceWithFileName("sprite-sample-numbers.xml"));
@@ -41,7 +41,7 @@ public class SpriteSetTest {
      * comparing rasters.
      */
     @Test
-    public void testSampleNumbers() throws PurpleException, URISyntaxException {
+    void testSampleNumbers() throws PurpleException, URISyntaxException {
 
         // Reads the expected resulting image
         BufferedImage expectedImage = ImageUtils
@@ -71,7 +71,7 @@ public class SpriteSetTest {
         byte[] actualArray = ((DataBufferByte) actualImage.getData().getDataBuffer()).getData();
 
         // Compare rasters
-        Assert.assertArrayEquals(expectedArray, actualArray);
+        assertArrayEquals(expectedArray, actualArray);
     }
 
     /**
