@@ -112,7 +112,8 @@ public class SpriteSet {
     }
 
     /**
-     * Renders the requested sprite, given by it's name, on given coordinates.
+     * Renders the requested sprite, given by it's name, on given coordinates
+     * with the global zoom factor.
      * 
      * @param canvas Graphic canvas where to do the rendering
      * @param spriteName name of the sprite to render
@@ -122,14 +123,30 @@ public class SpriteSet {
      */
     public void putSprite(Graphics canvas, ImageObserver imageObserver, String spriteName, int x,
             int y) {
+        putSprite(canvas, imageObserver, spriteName, x, y, zoomFactor);
+    }
+
+    /**
+     * Renders the requested sprite, given by it's name, on given coordinates
+     * with a specific zoom factor.
+     * 
+     * @param canvas Graphic canvas where to do the rendering
+     * @param spriteName name of the sprite to render
+     * @param imageObserver ImageObserver to notify once drawing has been done
+     * @param x horizontal location
+     * @param y vertical location
+     * @param localZoomFactor zoom factor to apply
+     */
+    public void putSprite(Graphics canvas, ImageObserver imageObserver, String spriteName, int x,
+            int y, double localZoomFactor) {
         Sprite spriteToRender = sprites.get(spriteName);
         if (spriteToRender == null) {
             throw new SpriteRenderingException(
                     "There is no sprite named '" + spriteName + "' in this SpriteSet.");
         }
 
-        canvas.drawImage(source, x, y, (int) (x + spriteToRender.getWidth() * zoomFactor),
-                (int) (y + spriteToRender.getHeight() * zoomFactor), spriteToRender.ox,
+        canvas.drawImage(source, x, y, (int) (x + spriteToRender.getWidth() * localZoomFactor),
+                (int) (y + spriteToRender.getHeight() * localZoomFactor), spriteToRender.ox,
                 spriteToRender.oy, spriteToRender.ox + spriteToRender.getWidth(),
                 spriteToRender.oy + spriteToRender.getHeight(), imageObserver);
     }
