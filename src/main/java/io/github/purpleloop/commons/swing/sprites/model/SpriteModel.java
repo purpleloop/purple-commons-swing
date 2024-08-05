@@ -212,41 +212,45 @@ public class SpriteModel {
 
     }
 
-    /** Resolve the given path according to the specified pathMode.
+    /**
+     * Resolve the given path according to the specified pathMode.
+     * 
      * @param pathMode the pathMode to use
      * @param pathToResolve the path to resolve
      * @param file the reference file
      * @return the resolved path
      * @throws PurpleException in case of problems
      */
-    private String resolvePath(PathMode pathMode, String pathToResolve, File file) throws PurpleException {
+    private String resolvePath(PathMode pathMode, String pathToResolve, File file)
+            throws PurpleException {
 
-            switch (pathMode) {
+        switch (pathMode) {
 
-            case RELATIVE:
-                
-                // Constructs a relative path
-                Path referencePath = Paths.get(file.getAbsolutePath());
-                Path parentPath = referencePath.getParent();
-                Path targetPath = parentPath.resolve(sourceImagePath);
-                return targetPath.toFile().getAbsolutePath();
+        case RELATIVE:
 
-            case CLASSPATH:
-                
-                // Load resource from class loader
-                ClassLoader classLoader = SpriteModel.class.getClassLoader();
-                URL url = classLoader.getResource(sourceImagePath);
-                try {
-                    return Paths.get(url.toURI()).toFile().getAbsolutePath();
-                } catch (URISyntaxException e) {
-                    throw new PurpleException("Failed to resolve resource from the classpath "+sourceImagePath ,e);
-                }               
+            // Constructs a relative path
+            Path referencePath = Paths.get(file.getAbsolutePath());
+            Path parentPath = referencePath.getParent();
+            Path targetPath = parentPath.resolve(sourceImagePath);
+            return targetPath.toFile().getAbsolutePath();
 
-            case ABSOLUTE:
-            default:
-                // Path is absolute - nothing to do
-                return pathToResolve;
+        case CLASSPATH:
+
+            // Load resource from class loader
+            ClassLoader classLoader = SpriteModel.class.getClassLoader();
+            URL url = classLoader.getResource(sourceImagePath);
+            try {
+                return Paths.get(url.toURI()).toFile().getAbsolutePath();
+            } catch (URISyntaxException e) {
+                throw new PurpleException(
+                        "Failed to resolve resource from the classpath " + sourceImagePath, e);
             }
+
+        case ABSOLUTE:
+        default:
+            // Path is absolute - nothing to do
+            return pathToResolve;
+        }
     }
 
     /**
@@ -327,7 +331,8 @@ public class SpriteModel {
         spriteDescriptorElement.appendChild(sourceImageElement);
 
         sourceImageElement.setAttribute(SOURCE_IMAGE_PATH_ATTRIBUTE, sourceImagePath);
-        sourceImageElement.setAttribute(SOURCE_IMAGE_PATH_MODE_ATTRIBUTE, sourceImagePathMode.name());
+        sourceImageElement.setAttribute(SOURCE_IMAGE_PATH_MODE_ATTRIBUTE,
+                sourceImagePathMode.name());
 
         Element indexesElement = document.createElement(INDEXES_ELEMENT);
         spriteDescriptorElement.appendChild(indexesElement);
@@ -359,17 +364,15 @@ public class SpriteModel {
     }
 
     /**
-     * @return the indexes used by the model
-     */
-    public List<IndexedSpriteSet> getIndexes() {
-        return indexes;
-    }
-
-    /**
      * @return the name of the file used in the model
      */
     public String getFileName() {
         return modelFile.getAbsolutePath();
+    }
+
+    /** @return the single sprites of the model */
+    public List<SingleSprite> getSingleSprites() {
+        return singleSprites;
     }
 
     /**
@@ -383,6 +386,23 @@ public class SpriteModel {
     }
 
     /**
+     * Removes a single sprite.
+     * 
+     * @param spriteToRemove the sprite to remove
+     */
+    public void removeSingleSprite(SingleSprite spriteToRemove) {
+        LOG.debug("Removing single sprite " + spriteToRemove);
+        singleSprites.remove(spriteToRemove);
+    }
+
+    /**
+     * @return the indexes used by the model
+     */
+    public List<IndexedSpriteSet> getIndexes() {
+        return indexes;
+    }
+
+    /**
      * Add an index to the model.
      * 
      * @param indexedSpriteSet the index to add
@@ -392,9 +412,14 @@ public class SpriteModel {
         indexes.add(indexedSpriteSet);
     }
 
-    /** @return the single sprites of the model */
-    public List<SingleSprite> getSingleSprites() {
-        return singleSprites;
+    /**
+     * Removes the given index.
+     * 
+     * @param indexToRemove the index to remove
+     */
+    public void removeIndex(IndexedSpriteSet indexToRemove) {
+        LOG.debug("Removing indexed sprite set " + indexToRemove);
+        indexes.remove(indexToRemove);
     }
 
     /**
