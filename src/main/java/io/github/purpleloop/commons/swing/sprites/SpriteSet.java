@@ -106,6 +106,16 @@ public class SpriteSet {
         return sprites.keySet();
     }
 
+    /**
+     * Changes the source image.
+     * 
+     * @param sourceImageFileName Sprite file name
+     * @throws PurpleException in case of problems during creation
+     */
+    public void setSourceImage(String sourceImageFileName) throws PurpleException {
+        source = ImageUtils.loadImageFromFile(sourceImageFileName);
+    }
+
     /** @return the image source or this sprite set */
     public Image getSourceImage() {
         return source;

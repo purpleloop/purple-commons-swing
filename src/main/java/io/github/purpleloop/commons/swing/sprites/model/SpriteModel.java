@@ -355,6 +355,21 @@ public class SpriteModel {
         return spriteSet.getSourceImage();
     }
 
+    /** @return the source image path */
+    public String getSourceImagePath() {
+        return sourceImagePath;
+    }
+
+    /**
+     * @param sourceImagePath the source image path
+     * @throws PurpleException In case of problem while changing the source
+     *             image
+     */
+    public void setSourceImage(String sourceImage) throws PurpleException {
+        this.sourceImagePath = sourceImage;
+        spriteSet.setSourceImage(sourceImage);
+    }
+    
     /**
      * @param key property key
      * @return property value
