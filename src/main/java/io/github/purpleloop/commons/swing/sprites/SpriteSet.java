@@ -6,6 +6,7 @@ import java.awt.image.ImageObserver;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.OptionalInt;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -169,6 +170,16 @@ public class SpriteSet {
      */
     public Sprite getSprite(String spriteName) {
         return sprites.get(spriteName);
+    }
+
+    /** @return the width of the widest sprite, if it exists */
+    public OptionalInt widest() {
+        return sprites.values().stream().mapToInt(sprite -> sprite.getWidth()).max();
+    }
+
+    /** @return the height of the highest sprite, if it exists */
+    public OptionalInt highest() {
+        return sprites.values().stream().mapToInt(sprite -> sprite.getHeight()).max();
     }
 
 }
