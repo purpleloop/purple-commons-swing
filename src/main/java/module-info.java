@@ -9,5 +9,5 @@ module io.github.purpleloop.commons.swing {
 
     requires transitive java.desktop;
     requires transitive io.github.purpleloop.commons;
-    requires commons.logging;
+    requires org.apache.commons.logging;
 }
