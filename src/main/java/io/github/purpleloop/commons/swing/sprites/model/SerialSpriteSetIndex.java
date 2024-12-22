@@ -22,8 +22,9 @@ import io.github.purpleloop.commons.swing.sprites.SpriteSet;
  * <ul>
  * <li>it's own index</li>
  * <li>a start location (x,y),</li>
- * <li>a sprite size (width, height), and</li></li> contains a given number of
- * sprites.</li>
+ * <li>a sprite size (width, height), and</li>
+ * <li> contains a given number of sprites.</li>
+ * </ul>
  * 
  * <p>
  * Naming of sprites takes the index of the serial into account and the index of
@@ -123,7 +124,11 @@ public class SerialSpriteSetIndex implements IndexedSpriteSet {
     /** The index id. */
     private int id;
 
-    /** Creates an indexed serial sprite set. */
+    /**
+     * Creates an indexed serial sprite set.
+     * 
+     * @param id the sprite id
+     */
     public SerialSpriteSetIndex(int id) {
         this.id = id;
         this.series = new ArrayList<>();

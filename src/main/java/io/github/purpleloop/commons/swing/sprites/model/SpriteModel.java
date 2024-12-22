@@ -59,7 +59,7 @@ public class SpriteModel {
     private static final String SINGLE_SPRITES_ELEMENT = "singleSprites";
 
     /** Class logger. */
-    public static final Log LOG = LogFactory.getLog(SpriteModel.class);
+    private static final Log LOG = LogFactory.getLog(SpriteModel.class);
 
     /** A global counter for attributing ids to the sprite model elements. */
     private int nextId;
@@ -365,9 +365,9 @@ public class SpriteModel {
      * @throws PurpleException In case of problem while changing the source
      *             image
      */
-    public void setSourceImage(String sourceImage) throws PurpleException {
-        this.sourceImagePath = sourceImage;
-        spriteSet.setSourceImage(sourceImage);
+    public void setSourceImage(String sourceImagePath) throws PurpleException {
+        this.sourceImagePath = sourceImagePath;
+        spriteSet.setSourceImage(sourceImagePath);
     }
     
     /**

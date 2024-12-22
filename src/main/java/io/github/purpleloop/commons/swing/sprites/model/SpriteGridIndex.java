@@ -229,7 +229,7 @@ public class SpriteGridIndex implements IndexedSpriteSet {
      * Preserve cell names (preserve values on resize when cols/rows changes).
      * 
      * @param minNumCols the minimal (common) number of columns
-     * @param minNumCols the minimal (common) number of rows
+     * @param minNumRows the minimal (common) number of rows
      */
     private void preserveCellNames(int minNumCols, int minNumRows) {
 
