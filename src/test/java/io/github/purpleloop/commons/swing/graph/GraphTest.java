@@ -88,7 +88,7 @@ class GraphTest {
         assertEquals(1, simpleGraph1.linkCount());
 
         // Link removal
-        simpleGraph1.removelLink(simpleGraph1.getLinks().get(0));
+        simpleGraph1.removeLink(simpleGraph1.getLinks().get(0));
         assertEquals(3, simpleGraph1.nodeCount());
         assertEquals(0, simpleGraph1.linkCount());
 

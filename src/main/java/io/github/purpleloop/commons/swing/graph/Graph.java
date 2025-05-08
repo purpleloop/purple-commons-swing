@@ -530,7 +530,7 @@ public class Graph<E> implements IGraph<E> {
      * 
      * @param linkToRemove the link to remove
      */
-    public void removelLink(Link<E> linkToRemove) {
+    public void removeLink(Link<E> linkToRemove) {
         links.remove(linkToRemove);
     }
 
