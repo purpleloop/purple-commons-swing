@@ -11,7 +11,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -529,11 +529,15 @@ public class Node<E> extends GraphObject<E> implements Selectable, Comparable<No
 
             if (owner.hasNodeLabels()) {
 
-                // Compute the rectangle
-
                 String str;
                 if (owner.isRenderContents()) {
-                    str = getContents().orElse(label).toString();
+
+                    Optional<E> contentsOpt = getContents();
+                    if (contentsOpt.isPresent()) {
+                        str = contentsOpt.toString();
+                    } else {
+                        str = label;
+                    }
 
                 } else {
                     str = label;

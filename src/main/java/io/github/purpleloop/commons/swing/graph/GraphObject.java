@@ -33,8 +33,14 @@ public class GraphObject<E> {
     /** Owning graph. */
     protected Graph<E> owner;
 
-    /** The stored contents if any. */
-    private Optional<Object> contents;
+    /**
+     * The stored contents if any.
+     * 
+     * Notice : Discussions exists on the practice of 'using an optional as a
+     * field'. Kept as it is as it is somewhat practical indeed. This prevent
+     * creating the optional on the fly for each access.
+     */
+    private Optional<E> contents;
 
     /** The id of the graph object in the owning graph. */
     private int id;
@@ -56,7 +62,7 @@ public class GraphObject<E> {
      * @param owner the owner graph
      * @param contents the data to store, nullable
      */
-    public GraphObject(Graph<E> owner, Object contents) {
+    public GraphObject(Graph<E> owner, E contents) {
 
         this.id = owner.getNextGraphObjectId();
         this.owner = owner;
@@ -144,9 +150,9 @@ public class GraphObject<E> {
     }
 
     /**
-     * @return the data stored in this graph object
+     * @return the data stored in this graph object,  if any
      */
-    public Optional<Object> getContents() {
+    public Optional<E> getContents() {
         return this.contents;
     }
 
@@ -155,7 +161,7 @@ public class GraphObject<E> {
      * 
      * @param contents the content to store, nullable
      */
-    public void setContents(Object contents) {
+    public void setContents(E contents) {
         this.contents = Optional.ofNullable(contents);
     }
 
