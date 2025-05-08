@@ -534,7 +534,7 @@ public class Node<E> extends GraphObject<E> implements Selectable, Comparable<No
 
                     Optional<E> contentsOpt = getContents();
                     if (contentsOpt.isPresent()) {
-                        str = contentsOpt.toString();
+                        str = contentsOpt.get().toString();
                     } else {
                         str = label;
                     }
