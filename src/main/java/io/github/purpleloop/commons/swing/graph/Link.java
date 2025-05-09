@@ -395,7 +395,13 @@ public class Link<E> extends GraphObject<E> implements Selectable {
 
         // Point (x,y) is sufficiently near the line supporting the link
         // according to the affine equation and the given precision.
-        return computeLinearEquation().get().isOnTheline(x, y, eps) && (isInBounds(x, y));
+        Optional<LinearEquation> linearEquationopt = computeLinearEquation();
+
+        if (linearEquationopt.isPresent()) {
+            return linearEquationopt.get().isOnTheline(x, y, eps) && isInBounds(x, y);
+        }
+
+        return false;
     }
 
     /**
