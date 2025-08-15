@@ -14,7 +14,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import io.github.purpleloop.commons.math.geom.GeomUtils;
-import io.github.purpleloop.commons.math.geom.LinearEquation;
+import io.github.purpleloop.commons.math.geom.CartesianLineEquation;
 import io.github.purpleloop.commons.swing.TextBox;
 import io.github.purpleloop.commons.swing.graph.exception.GraphException;
 
@@ -179,10 +179,10 @@ public class Link<E> extends GraphObject<E> implements Selectable {
     }
 
     /**
-     * @return the linear equation of the link support, if it exists
+     * @return the Cartesian line equation of the link support, if it exists
      */
-    private Optional<LinearEquation> computeLinearEquation() {
-        return LinearEquation.fromPoints(source.xLoc(), source.yLoc(), target.xLoc(),
+    private Optional<CartesianLineEquation> computeCartesianLineEquation() {
+        return CartesianLineEquation.fromPoints(source.xLoc(), source.yLoc(), target.xLoc(),
                 target.yLoc());
     }
 
@@ -394,11 +394,11 @@ public class Link<E> extends GraphObject<E> implements Selectable {
     protected boolean isNear(int x, int y, double eps) {
 
         // Point (x,y) is sufficiently near the line supporting the link
-        // according to the affine equation and the given precision.
-        Optional<LinearEquation> linearEquationopt = computeLinearEquation();
+        // according to the Cartesian line equation and the given precision.
+        Optional<CartesianLineEquation> cartesianLineEquationOpt = computeCartesianLineEquation();
 
-        if (linearEquationopt.isPresent()) {
-            return linearEquationopt.get().isOnTheline(x, y, eps) && isInBounds(x, y);
+        if (cartesianLineEquationOpt.isPresent()) {
+            return cartesianLineEquationOpt.get().isOnTheline(x, y, eps) && isInBounds(x, y);
         }
 
         return false;
