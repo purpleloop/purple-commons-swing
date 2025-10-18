@@ -263,6 +263,16 @@ public class ViewPanel<E> extends JPanel {
     }
 
     /**
+     * @return the focalized mode.
+     * 
+     *         In focalized mode, a specific 'focused' node is the center of
+     *         attention. Only it's direct neighbors are rendered around it.
+     */
+    public boolean isFocalized() {
+        return this.focalized;
+    }
+
+    /**
      * Change the focused node.
      * 
      * @param newFocusedNode the new focused node
