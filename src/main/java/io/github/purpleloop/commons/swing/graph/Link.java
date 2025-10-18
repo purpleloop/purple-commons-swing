@@ -339,7 +339,8 @@ public class Link<E> extends GraphObject<E> implements Selectable {
             if (owner.hasLinkLabels()) {
                 // Draws the label
 
-                TextBox tb = new TextBox(label, g.getFont(), g.getFontRenderContext());
+                TextBox tb = new TextBox(owner.abbreviateIfNeeded(label), g.getFont(),
+                        g.getFontRenderContext());
 
                 int width = tb.getWidth();
                 int height = tb.getHeight();

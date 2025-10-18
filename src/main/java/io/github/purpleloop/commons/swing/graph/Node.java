@@ -543,7 +543,8 @@ public class Node<E> extends GraphObject<E> implements Selectable, Comparable<No
                     str = label;
                 }
 
-                TextBox tb = new TextBox(str, g.getFont(), g.getFontRenderContext());
+                TextBox tb = new TextBox(owner.abbreviateIfNeeded(str), g.getFont(),
+                        g.getFontRenderContext());
                 width = tb.getWidth();
                 height = tb.getHeight();
 

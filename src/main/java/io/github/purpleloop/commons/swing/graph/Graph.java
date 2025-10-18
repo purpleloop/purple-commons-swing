@@ -113,6 +113,12 @@ public class Graph<E> implements IGraph<E> {
     /** Is content rendering active ? */
     private boolean renderContents = false;
 
+    /** The text abbreviated rendering mode. */
+    private boolean abbreviateRendering = false;
+
+    /** Maximal length of texts for abbreviate rendering. */
+    private int abbreviateLength = 10;
+
     /**
      * Creates an empty graph with an id.
      * 
@@ -163,6 +169,30 @@ public class Graph<E> implements IGraph<E> {
     /** @param renderContents content rendering activation */
     public void setRenderContent(boolean renderContents) {
         this.renderContents = renderContents;
+    }
+
+    /** @return The text abbreviated rendering mode. */
+    public boolean isAbbreviateRendering() {
+        return abbreviateRendering;
+    }
+
+    /**
+     * @param abbreviateRendering The text abbreviated rendering mode.
+     */
+    public void setAbbreviateRendering(boolean abbreviateRendering) {
+        this.abbreviateRendering = abbreviateRendering;
+    }
+
+    /** @return Maximal length of texts for abbreviate rendering. */
+    public int getAbbreviateLength() {
+        return abbreviateLength;
+    }
+
+    /**
+     * @param abbreviateLength Maximal length of texts for abbreviate rendering.
+     */
+    public void setAbbreviateLength(int abbreviateLength) {
+        this.abbreviateLength = abbreviateLength;
     }
 
     /** @return the next graph object id */
@@ -1259,6 +1289,21 @@ public class Graph<E> implements IGraph<E> {
             i++;
         }
         return null;
+    }
+
+    /**
+     * Abbreviate a string of the graph, if needed.
+     * 
+     * @param text the string to render
+     * @return the abbreviated text
+     */
+    protected String abbreviateIfNeeded(String text) {
+
+        if (text == null || !abbreviateRendering || text.length() <= abbreviateLength) {
+            return text;
+        }
+
+        return text.substring(0, abbreviateLength);
     }
 
 }
