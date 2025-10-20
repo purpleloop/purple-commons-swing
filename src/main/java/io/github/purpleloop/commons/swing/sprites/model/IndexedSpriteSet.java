@@ -17,6 +17,9 @@ public interface IndexedSpriteSet {
     /** @return the index id */
     String getId();
 
+    /** @param id the index id */
+    void setId(String id);
+
     /**
      * Register the sprites in the given sprite set, according to the index
      * structure.

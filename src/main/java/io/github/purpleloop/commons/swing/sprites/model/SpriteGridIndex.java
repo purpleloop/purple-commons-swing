@@ -114,6 +114,11 @@ public class SpriteGridIndex implements IndexedSpriteSet {
         return this.id;
     }
 
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
     /**
      * Sets the grid dimensions.
      * 
@@ -301,7 +306,7 @@ public class SpriteGridIndex implements IndexedSpriteSet {
      * @return the sprite name
      */
     public String getSpriteNameForNumber(int spriteNumber) {
-        return  "sprite." + id + "." + spriteNumber;
+        return "sprite." + id + "." + spriteNumber;
     }
 
     /** @return the number of sprites in the grid */
@@ -430,9 +435,7 @@ public class SpriteGridIndex implements IndexedSpriteSet {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Grid index " + id);
-        return sb.toString();
+        return id;
     }
 
 }

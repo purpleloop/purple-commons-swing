@@ -139,6 +139,11 @@ public class SerialSpriteSetIndex implements IndexedSpriteSet {
         return this.id;
     }
 
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
     /**
      * Reads a serial sprite set from an XML element.
      * 
