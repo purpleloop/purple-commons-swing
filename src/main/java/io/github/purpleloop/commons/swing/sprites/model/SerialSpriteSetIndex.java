@@ -23,7 +23,7 @@ import io.github.purpleloop.commons.swing.sprites.SpriteSet;
  * <li>it's own index</li>
  * <li>a start location (x,y),</li>
  * <li>a sprite size (width, height), and</li>
- * <li> contains a given number of sprites.</li>
+ * <li>contains a given number of sprites.</li>
  * </ul>
  * 
  * <p>
@@ -122,16 +122,21 @@ public class SerialSpriteSetIndex implements IndexedSpriteSet {
     private List<SerialSpriteSet> series;
 
     /** The index id. */
-    private int id;
+    private String id;
 
     /**
      * Creates an indexed serial sprite set.
      * 
      * @param id the sprite id
      */
-    public SerialSpriteSetIndex(int id) {
+    public SerialSpriteSetIndex(String id) {
         this.id = id;
         this.series = new ArrayList<>();
+    }
+
+    @Override
+    public String getId() {
+        return this.id;
     }
 
     /**
@@ -141,7 +146,7 @@ public class SerialSpriteSetIndex implements IndexedSpriteSet {
      */
     public void readFromXmlElement(Element serialIndexElement) {
 
-        this.id = Integer.parseInt(serialIndexElement.getAttribute("id"));
+        this.id = serialIndexElement.getAttribute("id");
 
         NodeList nodeList = serialIndexElement.getElementsByTagName(SerialSpriteSet.SERIAL_ELEMENT);
         for (int indexInSerie = 0; indexInSerie < nodeList.getLength(); indexInSerie++) {
@@ -156,7 +161,7 @@ public class SerialSpriteSetIndex implements IndexedSpriteSet {
         Element serialIndexElement = doc.createElement(SerialSpriteSetIndex.SERIAL_INDEX_ELEMENT);
         parent.appendChild(serialIndexElement);
 
-        serialIndexElement.setAttribute("id", Integer.toString(id));
+        serialIndexElement.setAttribute("id", id);
 
         for (SerialSpriteSet serie : series) {
             serie.saveToXml(doc, parent);
@@ -193,12 +198,13 @@ public class SerialSpriteSetIndex implements IndexedSpriteSet {
      * @param indexInSerie index in the serial
      * @return the sprite name
      */
-    private String getSpriteNameForFrame(int indexOfSerie, int indexInSerie) {
-        return "sprite" + (indexOfSerie * SERIAL_OFFSET_IN_NAME + indexInSerie);
+    public String getSpriteNameForFrame(int indexOfSerie, int indexInSerie) {
+        return "sprite" + "." + this.id + "."
+                + (indexOfSerie * SERIAL_OFFSET_IN_NAME + indexInSerie);
     }
 
     @Override
-    public Optional<Integer> getIndexFor(Point point) {
+    public Optional<Integer> getSpriteNumberForPoint(Point point) {
 
         Rectangle checkingRectangle = new Rectangle();
 

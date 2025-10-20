@@ -14,6 +14,9 @@ import io.github.purpleloop.commons.swing.sprites.SpriteSet;
  */
 public interface IndexedSpriteSet {
 
+    /** @return the index id */
+    String getId();
+
     /**
      * Register the sprites in the given sprite set, according to the index
      * structure.
@@ -29,7 +32,7 @@ public interface IndexedSpriteSet {
      * @return optional of the index value of the sprite, if there is one at the
      *         given point
      */
-    Optional<Integer> getIndexFor(Point point);
+    Optional<Integer> getSpriteNumberForPoint(Point point);
 
     /**
      * @param indexValue the sprite index value

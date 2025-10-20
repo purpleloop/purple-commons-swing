@@ -261,7 +261,7 @@ public class SpriteModel {
      */
     private SerialSpriteSetIndex readSerialSpriteSet(Element serialIndexElement) {
 
-        SerialSpriteSetIndex serialIndex = new SerialSpriteSetIndex(-1);
+        SerialSpriteSetIndex serialIndex = new SerialSpriteSetIndex("dummy");
         serialIndex.readFromXmlElement(serialIndexElement);
         return serialIndex;
     }
@@ -274,7 +274,7 @@ public class SpriteModel {
      */
     private SpriteGridIndex readGridSpriteSetIndex(Element gridElement) {
 
-        SpriteGridIndex gridIndex = new SpriteGridIndex(-1);
+        SpriteGridIndex gridIndex = new SpriteGridIndex("dummy");
         gridIndex.readFromXmlElement(gridElement);
         return gridIndex;
     }
@@ -369,7 +369,7 @@ public class SpriteModel {
         this.sourceImagePath = sourceImagePath;
         spriteSet.setSourceImage(sourceImagePath);
     }
-    
+
     /**
      * @param key property key
      * @return property value
@@ -456,11 +456,13 @@ public class SpriteModel {
      * @param canvas the graphics on which to paint
      * @param iob the image observer
      * @param index index do render
+     * @param spriteNumber sprite number in the index
      * @param x abscissa
      * @param y ordinate
      */
-    public void putSpriteForTime(Graphics canvas, ImageObserver iob, int index, int x, int y) {
-        putSprite(canvas, iob, "sprite" + index, x, y);
+    public void putSpriteForTime(Graphics canvas, ImageObserver iob, IndexedSpriteSet index,
+            int spriteNumber, int x, int y) {
+        putSprite(canvas, iob, "sprite" + "." + index.getId() + "." + spriteNumber, x, y);
     }
 
     /** @return the sprite set */

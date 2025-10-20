@@ -64,7 +64,7 @@ public class SpriteGridIndex implements IndexedSpriteSet {
     private static final Log LOG = LogFactory.getLog(SpriteGridIndex.class);
 
     /** The grid index id. */
-    private int id;
+    private String id;
 
     /**
      * Upper left corner of the grid. This is the "hot point" or "starting
@@ -98,11 +98,20 @@ public class SpriteGridIndex implements IndexedSpriteSet {
      * 
      * @param id id of the index
      */
-    public SpriteGridIndex(int id) {
+    public SpriteGridIndex(String id) {
 
         this.id = id;
+
+        // Initialize a default grid of 2 x 2 cells of 50 x 50 px at point
+        // (5,5), spacing 2 px.
+
         cellNames = new String[2][2];
         setGrid(2, 2, new Point(5, 5), 50, 50, 2, 2);
+    }
+
+    @Override
+    public String getId() {
+        return this.id;
     }
 
     /**
@@ -279,12 +288,20 @@ public class SpriteGridIndex implements IndexedSpriteSet {
             name = cellNames[col][row];
 
             if (name == null) {
-                name = "sprite" + spriteNumber;
+                name = getSpriteNameForNumber(spriteNumber);
             }
 
             spriteSet.addSprite(new Sprite(name, getX(spriteNumber), getY(spriteNumber), cellWidth,
                     cellHeight));
         }
+    }
+
+    /**
+     * @param the sprite number to get in the index
+     * @return the sprite name
+     */
+    public String getSpriteNameForNumber(int spriteNumber) {
+        return  "sprite." + id + "." + spriteNumber;
     }
 
     /** @return the number of sprites in the grid */
@@ -293,7 +310,7 @@ public class SpriteGridIndex implements IndexedSpriteSet {
     }
 
     @Override
-    public Optional<Integer> getIndexFor(Point p) {
+    public Optional<Integer> getSpriteNumberForPoint(Point p) {
 
         double px = p.getX();
         double py = p.getY();
@@ -326,7 +343,7 @@ public class SpriteGridIndex implements IndexedSpriteSet {
      * @param gridElement the XML element representing the grid
      */
     public void readFromXmlElement(Element gridElement) {
-        this.id = Integer.parseInt(gridElement.getAttribute(ID_ATTRIBUTE));
+        this.id = gridElement.getAttribute(ID_ATTRIBUTE);
 
         int sx = Integer.parseInt(gridElement.getAttribute(START_X_ATTRIBUTE));
         int sy = Integer.parseInt(gridElement.getAttribute(START_Y_ATTRIBUTE));
@@ -371,7 +388,7 @@ public class SpriteGridIndex implements IndexedSpriteSet {
     public Element saveToXml(Document doc, Element parent) {
 
         Element gridElement = doc.createElement(GRID_INDEX_ELEMENT);
-        gridElement.setAttribute(ID_ATTRIBUTE, Integer.toString(this.id));
+        gridElement.setAttribute(ID_ATTRIBUTE, this.id);
         gridElement.setAttribute(START_X_ATTRIBUTE, Integer.toString(this.startPoint.x));
         gridElement.setAttribute(START_Y_ATTRIBUTE, Integer.toString(this.startPoint.y));
         gridElement.setAttribute(SPRITES_PER_LINE_ATTRIBUTE, Integer.toString(this.numColumns));
