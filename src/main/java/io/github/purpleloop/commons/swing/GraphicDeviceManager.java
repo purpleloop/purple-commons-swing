@@ -211,7 +211,7 @@ public final class GraphicDeviceManager {
 
         } catch (Exception e) {
             LOG.error(
-                    "An exception occured while exiting from full screen - exiting the JVM by safety",
+                    "An exception occurred while exiting from full screen - exiting the JVM by safety",
                     e);
             System.exit(-1);
         }

@@ -86,7 +86,7 @@ public final class ImageUtils {
 
 		// We can'y use the auto-closable feature on the try/catch.
 		// The 'read' method can closes the stream and this leads auto-close to
-		// rise an IOException (closed).
+		// raise an IOException (closed).
 		try {
 
 			fileImageInputStream = new FileImageInputStream(imageFile);
