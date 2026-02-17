@@ -302,7 +302,7 @@ public class SpriteGridIndex implements IndexedSpriteSet {
     }
 
     /**
-     * @param the sprite number to get in the index
+     * @param spriteNumber the sprite number to get in the index
      * @return the sprite name
      */
     public String getSpriteNameForNumber(int spriteNumber) {

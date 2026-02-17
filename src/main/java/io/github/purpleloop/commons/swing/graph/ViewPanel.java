@@ -49,7 +49,7 @@ public class ViewPanel<E> extends JPanel {
     private Graph<E> graph = null;
 
     /** Current selection. */
-    private Selectable selection = null;
+    private Selectable<E> selection = null;
 
     /** Link source. */
     private Node<E> source = null;
@@ -103,7 +103,6 @@ public class ViewPanel<E> extends JPanel {
     /** Key listener for label edition. */
     private KeyListener labelKeyListener = new KeyAdapter() {
 
-        @SuppressWarnings("unchecked")
         @Override
         public void keyReleased(KeyEvent e) {
             if (selection instanceof Node) {
@@ -120,7 +119,6 @@ public class ViewPanel<E> extends JPanel {
     private MouseAdapter mouseAdapter = new MouseAdapter() {
 
         @Override
-        @SuppressWarnings("unchecked")
         public void mouseClicked(MouseEvent e) {
 
             hideTFNodeLabel();
@@ -168,7 +166,6 @@ public class ViewPanel<E> extends JPanel {
 
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         public void mousePressed(MouseEvent e) {
 
@@ -362,7 +359,6 @@ public class ViewPanel<E> extends JPanel {
      * 
      * @param code the action to do
      */
-    @SuppressWarnings("unchecked")
     public void setToDo(GraphAction code) {
         toDo = code;
 
@@ -405,7 +401,7 @@ public class ViewPanel<E> extends JPanel {
     /**
      * @return the selected graph element or null if none is selected
      */
-    public Selectable getSelection() {
+    public Selectable<E> getSelection() {
         return (graph != null) ? selection : null;
     }
 

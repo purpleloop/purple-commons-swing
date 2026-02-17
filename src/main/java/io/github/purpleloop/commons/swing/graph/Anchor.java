@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @param <E> graph content type
  */
-public class Anchor<E> extends GraphObject<E> implements Selectable {
+public class Anchor<E> extends GraphObject<E> implements Selectable<E> {
 
     /** Class logger. */
     private static final Log LOG = LogFactory.getLog(Anchor.class);
@@ -108,7 +108,7 @@ public class Anchor<E> extends GraphObject<E> implements Selectable {
     }
 
     @Override
-    public Selectable select(int x, int y) {
+    public Selectable<E> select(int x, int y) {
         selected = (Math.abs(x - xl) <= ANCHOR_SIZE) && (Math.abs(y - yl) <= ANCHOR_SIZE);
         return (selected ? this : null);
     }

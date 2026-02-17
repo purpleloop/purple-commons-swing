@@ -84,10 +84,10 @@ public class SplineLink<E> extends Link<E> {
     }
 
     @Override
-    public Selectable select(int x, int y) {
+    public Selectable<E> select(int x, int y) {
 
         selected = isNear(x, y, PROXIMITY_THRESHOLD);
-        Selectable s = (selected) ? this : null;
+        Selectable<E> s = (selected) ? this : null;
 
         if (s == null) {
             s = anchor1.select(x, y);

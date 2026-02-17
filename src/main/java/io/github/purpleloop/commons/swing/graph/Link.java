@@ -23,7 +23,7 @@ import io.github.purpleloop.commons.swing.graph.exception.GraphException;
  * 
  * @param <E> the graph content type
  */
-public class Link<E> extends GraphObject<E> implements Selectable {
+public class Link<E> extends GraphObject<E> implements Selectable<E> {
 
     /** Class logger. */
     private static final Log LOG = LogFactory.getLog(Link.class);
@@ -412,7 +412,7 @@ public class Link<E> extends GraphObject<E> implements Selectable {
      * @param y Selection ordinate
      * @return the selected link if it is in (x,y) or null
      */
-    public Selectable select(int x, int y) {
+    public Selectable<E> select(int x, int y) {
 
         selected = isNear(x, y, PROXIMITY_THRESHOLD);
 

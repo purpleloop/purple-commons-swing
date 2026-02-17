@@ -4,8 +4,10 @@ package io.github.purpleloop.commons.swing.graph;
  * Interface for graph selected elements.
  * 
  * May evolve to setSelected(state) + isIn(x,y)
+ * 
+ * @param <E> the selectable content type
  */
-public interface Selectable {
+public interface Selectable<E> {
 
     /**
      * Tests if the element is in (x,y), and if it is, select and return the
@@ -15,7 +17,7 @@ public interface Selectable {
      * @param y Selection ordinate
      * @return selected element or null
      */
-    Selectable select(int x, int y);
+    Selectable<E> select(int x, int y);
 
     /**
      * @return is the element selected

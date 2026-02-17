@@ -820,10 +820,9 @@ public class Graph<E> implements IGraph<E> {
      * @param y ordinate
      * @return a selectable element or null
      */
-    @SuppressWarnings("unchecked")
-    public Selectable select(int x, int y) {
+    public Selectable<E> select(int x, int y) {
 
-        Selectable selectable = null;
+        Selectable<E> selectable = null;
 
         for (int i = 0; (i < nodes.size()) && (selectable == null); i++) {
 

@@ -28,7 +28,7 @@ import io.github.purpleloop.commons.xml.XMLTools;
  * 
  * @param <E> the node content type
  */
-public class Node<E> extends GraphObject<E> implements Selectable, Comparable<Node<E>> {
+public class Node<E> extends GraphObject<E> implements Selectable<E>, Comparable<Node<E>> {
 
     /** Class logger. */
     private static final Log LOG = LogFactory.getLog(Node.class);
@@ -433,7 +433,7 @@ public class Node<E> extends GraphObject<E> implements Selectable, Comparable<No
      * @param y Selection ordinate
      * @return the selected node or null
      */
-    public Selectable select(int x, int y) {
+    public Selectable<E> select(int x, int y) {
         selected = isIn(x, y);
         return (selected ? this : null);
     }
